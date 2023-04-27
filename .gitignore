@@ -1,0 +1,8 @@
+.idea
+config.yaml
+__pycache__/
+*.log
+data/*.json
+backend/
+shells/.ipynb_checkpoints
+shells/*_feats.csv
