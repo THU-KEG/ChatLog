@@ -2,7 +2,7 @@
 
 ![](./config/model_system_v3.png)
 
-This repository stores data and code for `ChatLog: Recording and Analysing ChatGPT Across Time`.
+This repository stores data and code for the paper `ChatLog: Recording and Analysing ChatGPT Across Time` [[abs](https://arxiv.org/abs/2304.14106)][[pdf](https://arxiv.org/pdf/2304.14106.pdf)].
 
 # Data
 
@@ -32,39 +32,50 @@ The ChatLog-Monthly and ChatLog-Daily will be continuously updated.
 
 # Analysis Code
 
-1. For extracting features, run:
+1. For extracting all the knowledge and linguistic features, run:
 
 ```
 sh process_new_data_v1.sh
 ```
 
-2. For analyzing unchanged features, run:
+2. For analyzing features and calculating variation, run:
 
 ```
 sh analyse_var_and_classify_across_time_v1.sh
 ```
 
-3. For applying features on RoBERTa, run:
+3. Use LightGBM that ensembles the features with RoBERTa to train a robust ChatGPT detector, run:
 
 ```
 sh lgb_train_v2.sh
 ```
 
-4. For dumping knowledge features into `avg_HC3_knowledge_pearson_corr_feats.csv`
+4. For trend and correlation analysis, first dumping knowledge features into `avg_HC3_knowledge_pearson_corr_feats.csv`
 
 ```
 sh draw_knowledge_feats_v1.sh
 ```
 
-5. For dumping other features `avg_HC3_all_pearson_corr_feats.csv`
+5. Then dump other linguistic features into `avg_HC3_all_pearson_corr_feats.csv`
 
 ```
 sh draw_eval_corr_v1.sh
 ```
 
-6. For drawing all the figures in our paper:
+6. Finally, we can draw heatmaps and lineplots for trend and correlation analysis:
 
    - Put the dumped  `avg_HC3_knowledge_pearson_corr_feats.csv` and  `avg_HC3_all_pearson_corr_feats.csv` under the `./shells` folder
-   - Then use `./shells/knowledge_analysis.ipynb` and `temporal_analysis.ipynb` to draw every figures.
+   - Then use `./shells/knowledge_analysis.ipynb` and `./shells/temporal_analysis.ipynb` to draw every figure.
 
    
+# Citation
+If you find our work useful, please cite:
+
+```
+@article{tu2023chatlog,
+  title={ChatLog: Recording and Analyzing ChatGPT Across Time},
+  author={Tu, Shangqing and Li, Chunyang and Yu, Jifan and Wang, Xiaozhi and Hou, Lei and Li, Juanzi},
+  journal={arXiv preprint arXiv:2304.14106},
+  year={2023}
+}
+```
