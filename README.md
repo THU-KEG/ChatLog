@@ -1,8 +1,13 @@
-# ⏳ ChatLog
+# ⏳ ChatLog: Recording and Analysing ChatGPT Across Time
+
+# Overview
+This repository stores data and code for the paper `ChatLog: Recording and Analysing ChatGPT Across Time` [[abs](https://arxiv.org/abs/2304.14106)][[pdf](https://arxiv.org/pdf/2304.14106.pdf)].
+
+While there are abundant researches about evaluating ChatGPT on natural language understanding and generation tasks, few studies have investigated how ChatGPT's behavior changes over time. In this paper, we collect a coarse-to-fine temporal dataset called ChatLog, consisting of two parts that update monthly and daily: **ChatLog-Monthly** is a dataset of **38,730** question-answer pairs collected every month including questions from both the reasoning and classification tasks. **ChatLog-Daily**, on the other hand, consists of ChatGPT's responses to **1000** identical questions for long-form generation **every day**. We conduct comprehensive automatic and human evaluation to provide the evidence for the existence of ChatGPT evolving patterns. We further analyze the unchanged characteristics of ChatGPT over time by extracting its knowledge and linguistic features. We find some stable features to improve the robustness of a RoBERTa-based detector on new versions of ChatGPT. We will continuously maintain our project on GitHub.
 
 ![](./config/model_system_v3.png)
 
-This repository stores data and code for the paper `ChatLog: Recording and Analysing ChatGPT Across Time` [[abs](https://arxiv.org/abs/2304.14106)][[pdf](https://arxiv.org/pdf/2304.14106.pdf)].
+
 
 # Data
 
