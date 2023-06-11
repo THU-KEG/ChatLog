@@ -17,9 +17,11 @@ Now the category is as following:
 
 - ChatLog-Monthly
   -  202303.zip
+  -  202304.zip
 - ChatLog-Daily
   - api
     - everyday_20230305-20230409.zip
+    - everyday_20230410-20230508.zip
   - open
     - before0301.zip
   - processed_csv
@@ -37,6 +39,9 @@ The ChatLog-Monthly and ChatLog-Daily will be continuously updated.
 
 # Analysis Code
 
+For processsing data from 20230305 to 20230409, please use v1 version's shells.
+For processsing data after 20230410, please use v2 version's shells.
+
 1. For extracting all the knowledge and linguistic features, run:
 
 ```
@@ -52,7 +57,7 @@ sh analyse_var_and_classify_across_time_v1.sh
 3. Use LightGBM that ensembles the features with RoBERTa to train a robust ChatGPT detector, run:
 
 ```
-sh lgb_train_v2.sh
+sh lgb_train_v1.sh
 ```
 
 4. For trend and correlation analysis, first dumping knowledge features into `avg_HC3_knowledge_pearson_corr_feats.csv`

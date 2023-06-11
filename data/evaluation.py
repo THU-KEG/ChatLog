@@ -52,6 +52,11 @@ def prepare_args():
     "2023-01-18"
                         # "all"
                         )
+    parser.add_argument('--pp_suffixes', help='For Changing', type=str, nargs='+', default=
+    ["base"]
+                        # ["base", "para", "prompt", "prompt_para"]
+                        # [""]
+                        )
     # detection train
     parser.add_argument('--lgb_dir', type=str, default='/data/tsq/CK/model/lgb', )
     parser.add_argument('--train_time_setting', type=str, default='only01',
@@ -93,13 +98,13 @@ class Evaluator:
                 refs_lst.append(refs)
         return questions, refs_lst
 
-    def evaluate(self, time_qualifier):
+    def evaluate(self, time_qualifier, pp_suffix="base"):
         # date
         mm_dd = time_qualifier[-5:]
         if self.args.source_dataset == "HC3" and self.args.source_type == "open":
             input_jsonl_path = self.input_jsonl_path
         else:
-            input_jsonl_path = os.path.join(self.input_josnl_dir, f"data{mm_dd}_base.jsonl")
+            input_jsonl_path = os.path.join(self.input_josnl_dir, f"data{mm_dd}_{pp_suffix}.jsonl")
         # answers
         raw_answers = []
         res_lst = []
@@ -124,7 +129,7 @@ class Evaluator:
         assert len(scores) == len(raw_answers)
 
         # save
-        save_path = os.path.join(self.eval_dir, f"feature{mm_dd}_base.json")
+        save_path = os.path.join(self.eval_dir, f"feature{mm_dd}_{pp_suffix}.json")
         with open(save_path, 'w') as fout:
             json.dump(scores, fout)
         print(f"scores is output at: {save_path}")
@@ -201,8 +206,9 @@ if __name__ == '__main__':
         else:
             time_qualifiers = list(args.times)
         print(f"time_qualifiers {time_qualifiers}")
+        print(f"pp_suffixes {args.pp_suffixes}")
         for _time_qualifier in time_qualifiers:
-            print(_time_qualifier)
-            evaluator.evaluate(_time_qualifier)
+            for pp_suffix in args.pp_suffixes:
+                evaluator.evaluate(_time_qualifier, pp_suffix)
     elif args.task == 'calculate_detect_std':
         evaluator.calculate_detect_std()
