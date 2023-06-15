@@ -98,6 +98,8 @@ class Differentiation:
         for mm_dd, final_features in features_by_time.items():
             # load from json
             eval_path = os.path.join(eval_dir, f"feature{mm_dd}_base.json")
+            if not os.path.exists(eval_path):
+                 eval_path = os.path.join(eval_dir, f"feature{mm_dd}_base1.json")
             with open(eval_path, 'r') as fin:
                 rouge_scores = json.load(fin)
                 rouge2scores = {}

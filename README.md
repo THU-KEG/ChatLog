@@ -13,20 +13,20 @@ While there are abundant researches about evaluating ChatGPT on natural language
 
 We release our data at [tsinghua cloud](https://cloud.tsinghua.edu.cn/d/733684efbec84cbb8c52/).
 
-Now the category is as following:
+Now the category is as following, you can download them by clicking the link:
 
 - ChatLog-Monthly
-  -  202303.zip
-  -  202304.zip
+  -  [202303.zip](https://cloud.tsinghua.edu.cn/d/733684efbec84cbb8c52/files/?p=%2FChatLog-Monthly%2F202303.zip&dl=1)
+  -  [202304.zip](https://cloud.tsinghua.edu.cn/d/733684efbec84cbb8c52/files/?p=%2FChatLog-Monthly%2F202304.zip&dl=1)
 - ChatLog-Daily
   - api
-    - everyday_20230305-20230409.zip
-    - everyday_20230410-20230508.zip
+    - [everyday_20230305-20230409.zip](https://cloud.tsinghua.edu.cn/d/733684efbec84cbb8c52/files/?p=%2FChatLog-Daily%2Fapi%2Feveryday_20230305-20230409.zip&dl=1)
+    - [everyday_20230410-20230508.zip](https://cloud.tsinghua.edu.cn/d/733684efbec84cbb8c52/files/?p=%2FChatLog-Daily%2Fapi%2Feveryday_20230410-20230508.zip&dl=1)
   - open
-    - before0301.zip
+    - [before0301.zip](https://cloud.tsinghua.edu.cn/d/733684efbec84cbb8c52/files/?p=%2FChatLog-Daily%2Fopen%2Fbefore0301.zip&dl=1)
   - processed_csv
-    - avg_HC3_all_pearson_corr_feats.csv
-    - avg_HC3_knowledge_pearson_corr_feats.csv
+    - [avg_HC3_all_pearson_corr_feats.csv](https://cloud.tsinghua.edu.cn/d/733684efbec84cbb8c52/files/?p=%2FChatLog-Daily%2Fprocessed_csv%2Favg_HC3_all_pearson_corr_feats.csv&dl=1)
+    - [avg_HC3_knowledge_pearson_corr_feats.csv](https://cloud.tsinghua.edu.cn/d/733684efbec84cbb8c52/files/?p=%2FChatLog-Daily%2Fprocessed_csv%2Favg_HC3_knowledge_pearson_corr_feats.csv&dl=1)
 
 Every `zip` file contains some `jsonl` files and each json object is as the format:
 
@@ -45,31 +45,31 @@ For processsing data after 20230410, please use v2 version's shells.
 1. For extracting all the knowledge and linguistic features, run:
 
 ```
-sh process_new_data_v1.sh
+sh shells/process_new_data_v1.sh
 ```
 
 2. For analyzing features and calculating variation, run:
 
 ```
-sh analyse_var_and_classify_across_time_v1.sh
+sh shells/analyse_var_and_classify_across_time_v1.sh
 ```
 
 3. Use LightGBM that ensembles the features with RoBERTa to train a robust ChatGPT detector, run:
 
 ```
-sh lgb_train_v1.sh
+sh shells/lgb_train_v1.sh
 ```
 
 4. For trend and correlation analysis, first dumping knowledge features into `avg_HC3_knowledge_pearson_corr_feats.csv`
 
 ```
-sh draw_knowledge_feats_v1.sh
+sh shells/draw_knowledge_feats_v1.sh
 ```
 
 5. Then dump other linguistic features into `avg_HC3_all_pearson_corr_feats.csv`
 
 ```
-sh draw_eval_corr_v1.sh
+sh shells/draw_eval_corr_v1.sh
 ```
 
 6. Finally, we can draw heatmaps and lineplots for trend and correlation analysis:

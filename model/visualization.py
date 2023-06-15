@@ -161,4 +161,4 @@ class Visualizer:
         print(corrmat.shape)
         print(corrmat)
         corrmat.to_csv(f"{self.save_path[:-4]}.csv")
-        sns.clustermap(corrmat, annot=True, square=True)
+        # sns.clustermap(corrmat, annot=True, square=True)

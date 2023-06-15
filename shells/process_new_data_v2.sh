@@ -1,8 +1,10 @@
-NEW_TIME="2023-04-10"
+# NEW_TIME="2023-04-17 2023-04-18 2023-04-19 2023-04-20 2023-04-21 2023-04-22 2023-04-23"
+# NEW_TIME="2023-05-01 2023-05-02 2023-05-03 2023-05-04 2023-05-05 2023-05-06 2023-05-07 2023-05-08"
+NEW_TIME="2023-06-01 2023-06-02 2023-06-03 2023-06-04 2023-06-05 2023-06-06 2023-06-07 2023-06-08 2023-06-09 2023-06-10"
 SUFFIX="base1 base2 base3"
 
 # knowledge, linguistic and classify features
-CUDA_VISIBLE_DEVICES=3 python -m model.analyse --source_type api --source_dataset HC3 --time after0301 \
+CUDA_VISIBLE_DEVICES=7 python -m model.analyse --source_type api --source_dataset HC3 --time after0301 \
  --task extract_feature --end_id 1000 --feature_type all --knowledge_extractor all --pp_suffix $SUFFIX \
 --times $NEW_TIME
 
