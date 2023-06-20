@@ -141,10 +141,10 @@ class Visualizer:
         print(self.df.columns)
         print(self.df.shape)
         sns.set_theme(style="ticks", font='Times New Roman')
-        if self.args.feature_type == "linguistic":
-            self.df = self.df.drop(['ra_SSTo_C', 'ra_SOTo_C', 'ra_SXTo_C',
-                                    'ra_OSTo_C', 'ra_OOTo_C', 'ra_OXTo_C',
-                                    'ra_XSTo_C', 'ra_XOTo_C', 'ra_XXTo_C'], axis=1)
+        # if self.args.feature_type == "linguistic":
+        self.df = self.df.drop(['ra_SSTo_C', 'ra_SOTo_C', 'ra_SXTo_C',
+                                'ra_OSTo_C', 'ra_OOTo_C', 'ra_OXTo_C',
+                                'ra_XSTo_C', 'ra_XOTo_C', 'ra_XXTo_C'], axis=1)
         print(f"##### new shape #####")
         print(self.df.columns)
         print(self.df.shape)

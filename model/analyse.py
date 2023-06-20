@@ -37,7 +37,8 @@ def prepare_args():
     ["all"]
                         )
     parser.add_argument('--pp_suffixes', help='For Changing', type=str, nargs='+', default=
-    ["base"]
+    ["base1", "base2", "base3"]
+    # ["base"]
                         # ["base", "para", "prompt", "prompt_para"]
                         # [""]
                         )

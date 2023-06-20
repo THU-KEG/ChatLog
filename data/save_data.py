@@ -210,7 +210,10 @@ class DBLoader:
                 file_name = f"feature{mm_dd}_{pp_suffix}.json"
                 file_path = os.path.join(self.feature_dir, file_name)
                 if len(pp_suffixes) == 1 and not os.path.exists(file_path):
-                    file_name = f"feature{mm_dd}_base1.json"
+                    if mm_dd == '04-12':
+                        file_name = f"feature{mm_dd}_base1.json"
+                    else:
+                        file_name = f"feature{mm_dd}_base.json"
                     file_path = os.path.join(self.feature_dir, file_name)
                     
                 with open(file_path, 'r') as fin:

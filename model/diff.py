@@ -59,8 +59,21 @@ class Differentiation:
             df = self.get_feature_group()
             return df
         elif self.return_type == "feature_and_eval":
-            df = self.get_feature_and_eval(features_by_time)
-            return df
+            dfs = []
+            for suffix, features in features_by_time.items():
+                df = self.get_feature_and_eval(features, suffix)
+                dfs.append(df)
+            # average each df
+            df_average = dfs[0].drop(columns=['time']) 
+            for i in range(1, len(dfs)):
+                next_df = dfs[i].drop(columns=['time'])
+                print("Concatenate: ")
+                print(df_average.shape, next_df.shape)
+                assert df_average.shape == next_df.shape
+                df_average += next_df
+            df_average /= len(dfs)
+            df_average = df_average.join(dfs[0]['time'])
+            return df_average
         else:
             # return dict
             return feature2id_record, features_by_time
@@ -90,16 +103,19 @@ class Differentiation:
 
         return final_features
 
-    def get_feature_and_eval(self, features_by_time):
+    def get_feature_and_eval(self, features_by_time, suffix):
         eval_dir = os.path.join(self.args.data_dir, "api", "after0301",
                                 self.args.language,
                                 "HC3_eval")
         new_feature_and_eval = {}
         for mm_dd, final_features in features_by_time.items():
-            # load from json
-            eval_path = os.path.join(eval_dir, f"feature{mm_dd}_base.json")
+            # load rouge scores from json
+            eval_path = os.path.join(eval_dir, f"feature{mm_dd}_{suffix}.json")
             if not os.path.exists(eval_path):
-                 eval_path = os.path.join(eval_dir, f"feature{mm_dd}_base1.json")
+                 if mm_dd == '04-12':
+                    eval_path = os.path.join(eval_dir, f"feature{mm_dd}_base1.json")
+                 else:
+                    eval_path = os.path.join(eval_dir, f"feature{mm_dd}_base.json")
             with open(eval_path, 'r') as fin:
                 rouge_scores = json.load(fin)
                 rouge2scores = {}
@@ -222,30 +238,33 @@ class Differentiation:
 
     def diff_through_time(self):
         # fix the prompt and parameter
-        pp_suffix = self.args.pp_suffixes[0]
-        # load feature
-        features_dict = self.loader.load_feature_by_json(self.args.times, [pp_suffix])
-        _features_by_time = features_dict[pp_suffix]
-        features_by_time = {}
-        for mm_dd, feature_obj in _features_by_time.items():
-            final_features = self.load_feature_by_type(feature_obj)
-            features_by_time[mm_dd] = final_features
-        # 250 feature for 1000 Id for 20 day
-        # we should calculate the variation on each id with 20 days
-        feature2id_record = {}
-        print(features_by_time.keys())
-        feature_keys = list(features_by_time[list(features_by_time.keys())[0]].keys())
-        print(feature_keys)
-        print(len(feature_keys))
-        for k in feature_keys:
-            # init
-            feature2id_record[k] = [[] for i in range(self.total)]
-        # transform into feature2id_record
-        for mm_dd, feature_obj in features_by_time.items():
-            for k, lst in feature_obj.items():
-                for i, value in enumerate(lst):
-                    # feature2id_record[k][i] will finally reach a length of days
-                    feature2id_record[k][i].append(value)
-        self.conditions = [f"{mm_dd}_base" for mm_dd in features_by_time.keys()]
-        self.condition2features = features_by_time
-        return feature2id_record, features_by_time
+        # pp_suffix = self.args.pp_suffixes[0]
+        pp_sufffix2features = {}
+        for pp_suffix in self.args.pp_suffixes:
+            # load feature
+            features_dict = self.loader.load_feature_by_json(self.args.times, [pp_suffix])
+            _features_by_time = features_dict[pp_suffix]
+            features_by_time = {}
+            for mm_dd, feature_obj in _features_by_time.items():
+                final_features = self.load_feature_by_type(feature_obj)
+                features_by_time[mm_dd] = final_features
+            # 250 feature for 1000 Id for 20 day
+            # we should calculate the variation on each id with 20 days
+            feature2id_record = {}
+            print(features_by_time.keys())
+            feature_keys = list(features_by_time[list(features_by_time.keys())[0]].keys())
+            print(feature_keys)
+            print(len(feature_keys))
+            for k in feature_keys:
+                # init
+                feature2id_record[k] = [[] for i in range(self.total)]
+            # transform into feature2id_record
+            for mm_dd, feature_obj in features_by_time.items():
+                for k, lst in feature_obj.items():
+                    for i, value in enumerate(lst):
+                        # feature2id_record[k][i] will finally reach a length of days
+                        feature2id_record[k][i].append(value)
+            self.conditions = [f"{mm_dd}_base" for mm_dd in features_by_time.keys()]
+            self.condition2features = features_by_time
+            pp_sufffix2features[pp_suffix] = features_by_time
+        return feature2id_record, pp_sufffix2features
