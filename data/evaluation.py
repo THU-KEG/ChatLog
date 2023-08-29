@@ -1,6 +1,6 @@
 import argparse
 import os
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, confusion_matrix
 import pandas as pd
 from tqdm import tqdm
 from config.conf import CONFIG
@@ -169,7 +169,14 @@ class Evaluator:
                 # calculate acc
                 for k, preds in model2pred.items():
                     acc = accuracy_score(spg_df[["label"]], preds)
-                    sp2model2acc_lst[sp][k].append(acc)
+                    tn, fp, fn, tp = confusion_matrix(spg_df[["label"]], preds).ravel()
+                    sp2model2acc_lst[sp][k].append({
+                        "acc": acc,
+                        "tn": tn/len(preds),
+                        "fp": fp/len(preds),
+                        "fn": fn/len(preds),
+                        "tp": tp/len(preds),
+                    })
         # load acc for feature
         for seed in self.args.seeds:
             for key in self.args.train_feature_settings:
@@ -181,12 +188,28 @@ class Evaluator:
                     # model's predicts and labels
                     res_df = pd.read_csv(res_file_csv)
                     acc = accuracy_score(res_df[["label"]], res_df[["preds"]])
-                    sp2model2acc_lst[sp][key].append(acc)
+                    tn, fp, fn, tp = confusion_matrix(res_df[["label"]], res_df[["preds"]]).ravel()
+                    sp2model2acc_lst[sp][key].append({
+                        "acc": acc,
+                        "tn": tn/len(res_df[["preds"]]),
+                        "fp": fp/len(res_df[["preds"]]),
+                        "fn": fn/len(res_df[["preds"]]),
+                        "tp": tp/len(res_df[["preds"]]),
+                    })
         # calculate mean and std for each model
+        keys = ["acc", "tn", "fp",  "fn", "tp"]
         for sp, model2acc_lst in sp2model2acc_lst.items():
             for model, acc_lst in model2acc_lst.items():
-                print(f"split {sp}, model {model}, average {np.mean(acc_lst)}, std {np.std(acc_lst)}")
-
+                for k in keys:
+                    k_acc_lst = [i[k] for i in acc_lst]
+                    if k == "acc":
+                        print(f"split {sp}, metric {k}, model {model}, average {np.mean(k_acc_lst)}, std {np.std(k_acc_lst)}")
+                        # s = """${_avg}_{{\pm{_std}}}$""".format(_avg=f"{np.mean(k_acc_lst):.3f}", _std=f"{np.std(k_acc_lst):.3f}")
+                        # print(s)
+                    else:
+                        print(f"split {sp}, metric {k}, model {model}, average {np.mean(k_acc_lst)}, std {np.std(k_acc_lst)}")
+                    s = """${_avg}_{{\pm{_std}}}$""".format(_avg=f"{np.mean(k_acc_lst)*100:.1f}", _std=f"{np.std(k_acc_lst)*100:.1f}")
+                    print(s)
 
 if __name__ == '__main__':
     args = prepare_args()
