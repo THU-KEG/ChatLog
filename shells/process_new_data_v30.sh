@@ -2,8 +2,8 @@
 # NEW_TIME="2023-09-11 2023-09-12 2023-09-13 2023-09-14 2023-09-15 2023-09-16 2023-09-17 2023-09-18 2023-09-19 2023-09-20"
 # NEW_TIME="2023-09-21 2023-09-22 2023-09-23 2023-09-24 2023-09-25 2023-09-26"
 # 
-NEW_TIME="2023-09-21 2023-09-22 2023-09-23 2023-09-24"
-SUFFIX="base1 base2 base3"
+NEW_TIME="2023-06-14 2023-07-05"
+SUFFIX="base2 base3"
 
 # knowledge, linguistic and classify features
 CUDA_VISIBLE_DEVICES=3 python -m model.analyse --source_type api --source_dataset HC3 --time after0301 \

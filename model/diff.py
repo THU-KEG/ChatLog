@@ -111,8 +111,10 @@ class Differentiation:
         for mm_dd, final_features in features_by_time.items():
             # load rouge scores from json
             eval_path = os.path.join(eval_dir, f"feature{mm_dd}_{suffix}.json")
+            print("eval_path:", eval_path)
+            print("suffix:", suffix)
             if not os.path.exists(eval_path):
-                 if mm_dd == '04-12':
+                 if mm_dd in ['04-12', '06-14', '06-25', '07-05', '07-07', '09-09', '09-20', '09-28']:
                     eval_path = os.path.join(eval_dir, f"feature{mm_dd}_base1.json")
                  else:
                     eval_path = os.path.join(eval_dir, f"feature{mm_dd}_base.json")

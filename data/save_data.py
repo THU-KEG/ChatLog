@@ -209,8 +209,10 @@ class DBLoader:
                 mm_dd = time_qualifier[-5:]
                 file_name = f"feature{mm_dd}_{pp_suffix}.json"
                 file_path = os.path.join(self.feature_dir, file_name)
+                print("pp_suffixes: ", pp_suffixes)
+                print("file_path: ", file_path)
                 if len(pp_suffixes) == 1 and not os.path.exists(file_path):
-                    if mm_dd == '04-12':
+                    if mm_dd in ['04-12', '06-14', '06-25', '07-05', '07-07', '09-15', '09-20', '09-22', '09-28']:
                         file_name = f"feature{mm_dd}_base1.json"
                     else:
                         file_name = f"feature{mm_dd}_base.json"
