@@ -18,6 +18,7 @@ for category, lst in category2task.items():
 
 def prepare_args():
     parser = argparse.ArgumentParser(description='generate table with t-test')
+    parser.add_argument('--add_metric', default=False, action="store_true", help="add metric to the table")
     parser.add_argument('--data_file', help='Where to load', default='/home/tsq/ChatLog/data/monthly_res.json')
     args = parser.parse_args()
     return args
@@ -34,10 +35,14 @@ def gen_table(args):
         print(f"level {level}")
         for i, task_name in enumerate(lst):
             cate = task2category[task_name.lower()]
-            metric = "Accuracy" if task_name.lower() in accs else "F1"
             color_type = "deep" if i % 2 == 0 else "shallow"
-            task_str = "\\rowcolor{'" + color_type + str(level+1) +"'}" + f" {task_name} &" +  f" {cate} &" +  f" {metric} &"
+            if args.add_metric:         
+                metric = "Accuracy" if task_name.lower() in accs else "F1"
+                task_str = "\\rowcolor{'" + color_type + str(level+1) +"'}" + f" {task_name} &" +  f" {cate} &" +  f" {metric} &"
+            else:
+                task_str = "\\rowcolor{'" + color_type + str(level+1) +"'}" + f" {task_name} &" +  f" {cate} &"
             prev_month = ""
+            first_month = list(data_dict.keys())[0]
             for month, month_dict in data_dict.items():
                 # print(f"month {month}")
                 # get data
@@ -45,7 +50,7 @@ def gen_table(args):
                 task_value = month_dict[task_name.lower()] * 100
                 v_str = f" {task_value:.2f} &"
                 # judge the improvement
-                if month not in ["Old", "SOTA"]:
+                if month not in [first_month, "SOTA"]:
                     prev_value = data_dict[prev_month][task_name.lower()] * 100
                     improve = (task_value - prev_value) / prev_value
                     if improve > 0.1:
