@@ -39,6 +39,7 @@ Now the category is as following, you can download them by clicking the link:
     - [everyday_20230901-20230930.zip](https://cloud.tsinghua.edu.cn/f/215dde0578884aaa8867/?dl=1)
     - [everyday_20231001-20231113.zip](https://cloud.tsinghua.edu.cn/f/e8f388c48a004c34a6aa/?dl=1)
     - [everyday_20231114-20231228.zip](https://cloud.tsinghua.edu.cn/f/0cf04e4ac3dd4f87a03d/?dl=1)
+    - [everyday_20240109-20240209.zip](https://cloud.tsinghua.edu.cn/f/126faff2d49a4ce0b25e/?dl=1)
   - open
     - [before0301.zip](https://cloud.tsinghua.edu.cn/d/733684efbec84cbb8c52/files/?p=%2FChatLog-Daily%2Fopen%2Fbefore0301.zip&dl=1)
   - processed_csv
