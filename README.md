@@ -28,6 +28,8 @@ Now the category is as following, you can download them by clicking the link:
   -  [202310.zip](https://cloud.tsinghua.edu.cn/f/5afe93757bbc497fbc5d/?dl=1)
   -  [202311.zip](https://cloud.tsinghua.edu.cn/f/c6550c0091df40d38b9d/?dl=1)
   -  [202312.zip](https://cloud.tsinghua.edu.cn/f/51e66dcaedaf46938c56/?dl=1)
+  -  [202401.zip](https://cloud.tsinghua.edu.cn/f/14378f3cf6e94ec0a7b5/?dl=1)
+  -  [202402.zip](https://cloud.tsinghua.edu.cn/f/75c70d3af1034da5ac57/?dl=1)
 - ChatLog-Daily
   - api
     - [everyday_20230305-20230409.zip](https://cloud.tsinghua.edu.cn/d/733684efbec84cbb8c52/files/?p=%2FChatLog-Daily%2Fapi%2Feveryday_20230305-20230409.zip&dl=1)
@@ -40,6 +42,7 @@ Now the category is as following, you can download them by clicking the link:
     - [everyday_20231001-20231113.zip](https://cloud.tsinghua.edu.cn/f/e8f388c48a004c34a6aa/?dl=1)
     - [everyday_20231114-20231228.zip](https://cloud.tsinghua.edu.cn/f/0cf04e4ac3dd4f87a03d/?dl=1)
     - [everyday_20240109-20240209.zip](https://cloud.tsinghua.edu.cn/f/126faff2d49a4ce0b25e/?dl=1)
+    - [everyday_20240210-20240313.zip](https://cloud.tsinghua.edu.cn/f/316b4c8ae20f46dca015/?dl=1)
   - open
     - [before0301.zip](https://cloud.tsinghua.edu.cn/d/733684efbec84cbb8c52/files/?p=%2FChatLog-Daily%2Fopen%2Fbefore0301.zip&dl=1)
   - processed_csv
